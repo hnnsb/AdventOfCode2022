@@ -1,6 +1,3 @@
-
-
-
 with open("day01/input.txt", "r") as f:
     data = []
     sub = []
