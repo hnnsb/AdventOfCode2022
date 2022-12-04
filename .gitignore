@@ -1,3 +1,6 @@
+# Ignore project specific stuff
+test/
+
 # Ignore IDE specific stuff
 .vscode
 .idea
