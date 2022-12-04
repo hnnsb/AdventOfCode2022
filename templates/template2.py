@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from dotenv import dotenv_values
 load_dotenv()
 from aocd.models import Puzzle
-from aocd import submit
 
 
 fileName = basename(__file__)
