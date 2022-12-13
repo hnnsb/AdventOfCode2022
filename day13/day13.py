@@ -1,7 +1,5 @@
-import functools
 from aocd.models import Puzzle
 from os.path import basename
-from re import findall
 from dotenv import load_dotenv
 from dotenv import dotenv_values
 load_dotenv()
@@ -57,6 +55,7 @@ for i, pair in enumerate(data):
 print(result)
 puzzle.answer_a = result
 
+# Part 2
 flatData = []
 for pair in data:
     flatData.append(pair[0])
@@ -69,7 +68,6 @@ for n in range(len(flatData), 1, -1):
     for i in range(0, n-1):
         if not checkPackagePair(flatData[i], flatData[i+1]):
             flatData[i], flatData[i + 1] = flatData[i+1], flatData[i]
-
 res = 1
 for i, row in enumerate(flatData):
     if row == [[2]] or row == [[6]]:

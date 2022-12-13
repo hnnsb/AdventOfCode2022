@@ -1,6 +1,5 @@
 from aocd.models import Puzzle
 from os.path import basename
-from re import findall
 from dotenv import load_dotenv
 from dotenv import dotenv_values
 load_dotenv()
