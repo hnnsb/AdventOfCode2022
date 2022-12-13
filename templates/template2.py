@@ -10,10 +10,12 @@ day = int(fileName.strip(r"day|.py"))
 puzzle = Puzzle(day=day, year=dotenv_values()["YEAR"])
 TEST = False
 # -----------------------------------------------------
-data = puzzle.input_data.splitlines()
+data = puzzle.input_data
 if TEST:
     with open(f"day{day}/test.txt", "r") as f:
-            data = f.read().splitlines()
+            data = f.read()
+data.splitlines()
+
 print(data)
 
 # puzzle.answer_a =
