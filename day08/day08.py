@@ -10,16 +10,16 @@ day = int(findall(r"[1-9]+", fileName)[0])
 puzzle = Puzzle(day=day, year=dotenv_values()["YEAR"])
 TEST = False
 # -----------------------------------------------------
-data =  puzzle.input_data.splitlines()
+data = puzzle.input_data.splitlines()
 if TEST:
     with open("day08/test.txt", "r") as f:
         data = f.read().splitlines()
-data = [list(map(int,row.strip())) for row in data]
-w, h = len(data[1]),len(data)
+data = [list(map(int, row.strip())) for row in data]
+w, h = len(data[1]), len(data)
 visible = [[True for _ in range(w)] for __ in range(h)]
-countVisible = 0
 
-def isTreeVisible(x,y):
+
+def isTreeVisible(x, y):
     t = data[y][x]
     topBigger = False
     botBigger = False
@@ -32,7 +32,7 @@ def isTreeVisible(x,y):
             if dy > y:
                 botBigger = True
     rightBigger = False
-    leftBigger = False          
+    leftBigger = False
     for dx in range(w):
         if rightBigger and leftBigger:
             break
@@ -43,37 +43,38 @@ def isTreeVisible(x,y):
                 leftBigger = True
     return not topBigger or not botBigger or not rightBigger or not leftBigger
 
-for y,row in enumerate(data):
-    for x,t in enumerate(row):
-        if not visible[y][x]:
-            continue
+
+for y, row in enumerate(data):
+    for x, t in enumerate(row):
         if x == 0 or y == 0 or x == w-1 or y == h-1:
             visible[y][x] = True
             continue
-        visible[y][x] = isTreeVisible(x,y)
+        visible[y][x] = isTreeVisible(x, y)
 
 
-
+countVisible = 0
 for row in visible:
     for b in row:
-        if b: countVisible += 1
-puzzle.answer_a =1803
+        if b:
+            countVisible += 1
+print(countVisible)
+puzzle.answer_a = countVisible
 
 
-def lookDir(x,y,dir):
+def lookDir(x, y, dir):
     if dir == "UP":
         dy = 1
         while y-dy >= 0:
             if data[y-dy][x] >= data[y][x]:
                 return dy
-            dy+=1
+            dy += 1
         return dy-1
     if dir == "DOWN":
         dy = 1
         while y+dy < h:
             if data[y+dy][x] >= data[y][x]:
                 return dy
-            dy+=1
+            dy += 1
         return dy-1
     if dir == "LEFT":
         dx = 1
@@ -89,14 +90,13 @@ def lookDir(x,y,dir):
                 return dx
             dx += 1
         return dx-1
-            
-scenic= [[0 for _ in range(w)] for __ in range(h)]
-for y,row in enumerate(data):
-    for x,t in enumerate(row):
-        score = 0
-        score = lookDir(x,y,"UP")*lookDir(x,y,"DOWN")*lookDir(x,y,"LEFT")*lookDir(x,y,"RIGHT")
 
-        scenic[y][x] = score
-res = max(map(max,scenic))
 
+scenic_scores = [[0 for _ in range(w)] for __ in range(h)]
+for y, row in enumerate(data):
+    for x, t in enumerate(row):
+        scenic_scores[y][x] = lookDir(
+            x, y, "UP")*lookDir(x, y, "DOWN")*lookDir(x, y, "LEFT")*lookDir(x, y, "RIGHT")
+res = max(map(max, scenic_scores))
+print(res)
 puzzle.answer_b = res
