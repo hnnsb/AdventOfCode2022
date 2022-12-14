@@ -42,21 +42,15 @@ for row in data:
     for i in range(len(row)-1):
         start, end = row[i], row[i+1]
         diffX, diffY = end[0]-start[0], end[1]-start[1]
-        stepX, stepY = 0, 0
-        if abs(diffX) > 0:
-            stepX = 1 if diffX > 0 else -1
-        if abs(diffY) > 0:
-            stepY = 1 if diffY > 0 else -1
+        stepX = diffX // abs(diffX) if diffX != 0 else 0
+        stepY = diffY // abs(diffY) if diffY != 0 else 0
+        minX, minY = min(minX, start[0], end[0]), min(minY, start[1], end[1])
+        maxX, maxY = max(maxX, start[0], end[0]), max(maxY, start[1], end[1])
         cur = start
         rock.add(tuple(cur))
-        minX = min(minX, start[0], end[0])
-        minY = min(minY, start[1], end[1])
-        maxX = max(maxX, start[0], end[0])
-        maxY = max(maxY, start[1], end[1])
         while cur != end:
             cur = cur[0]+stepX, cur[1]+stepY
             rock.add(tuple(cur))
-
 
 rockB = rock.copy()
 
